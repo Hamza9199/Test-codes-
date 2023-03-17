@@ -1,0 +1,146 @@
+#include <SFML/Graphics.hpp>
+#include <cstdlib>
+#include <ctime>
+#include <iostream>
+
+using namespace sf;
+using namespace std;
+
+// Function to generate random jungle animal dance moves
+string generateMove()
+{
+    int moveNum = rand() % 4;
+    string move;
+
+    switch (moveNum)
+    {
+    case 0:
+        move = "twirl";
+        break;
+    case 1:
+        move = "jump";
+        break;
+    case 2:
+        move = "spin";
+        break;
+    case 3:
+        move = "shake";
+        break;
+    default:
+        move = "unknown";
+    }
+
+    return move;
+}
+
+int main()
+{
+    srand(time(NULL)); // Seed random number generator
+
+    // Create the main window
+    RenderWindow window(VideoMode(800, 600), "Jungle Jamboree");
+
+    // Load animal sprites
+    Texture monkeyTexture;
+    monkeyTexture.loadFromFile("monkey.png");
+    Sprite monkey(monkeyTexture);
+    monkey.setPosition(100, 400);
+
+    Texture elephantTexture;
+    elephantTexture.loadFromFile("elephant.png");
+    Sprite elephant(elephantTexture);
+    elephant.setPosition(300, 400);
+
+    Texture lionTexture;
+    lionTexture.loadFromFile("lion.png");
+    Sprite lion(lionTexture);
+    lion.setPosition(500, 400);
+
+    // Load background music
+    Music music;
+    if (!music.openFromFile("music.ogg"))
+    {
+        cout << "Error loading music file" << endl;
+    }
+
+    // Start the game loop
+    while (window.isOpen())
+    {
+        // Process events
+        Event event;
+        while (window.pollEvent(event))
+        {
+            // Close window: exit
+            if (event.type == Event::Closed)
+                window.close();
+        }
+
+        // Clear screen
+        window.clear();
+
+        // Display the animal sprites
+        window.draw(monkey);
+        window.draw(elephant);
+        window.draw(lion);
+
+        // Generate animal dance moves
+        for (int i = 0; i < 10; i++)
+        {
+            // Select a random animal
+            int animalNum = rand() % 3;
+            Sprite animal;
+
+            switch (animalNum)
+            {
+            case 0:
+                animal = monkey;
+                break;
+            case 1:
+                animal = elephant;
+                break;
+            case 2:
+                animal = lion;
+                break;
+            }
+
+            // Display animal name
+            string animalName;
+            switch (animalNum)
+            {
+            case 0:
+                animalName = "Monkey";
+                break;
+            case 1:
+                animalName = "Elephant";
+                break;
+            case 2:
+                animalName = "Lion";
+                break;
+            }
+            Font font;
+            font.loadFromFile("arial.ttf");
+            Text text(animalName, font, 20);
+            text.setPosition(animal.getPosition().x + 50, animal.getPosition().y - 30);
+            window.draw(text);
+
+            // Display dance moves
+            for (int j = 0; j < 4; j++)
+            {
+                string move = generateMove();
+                Font font;
+                font.loadFromFile("arial.ttf");
+                Text text(move, font, 20);
+                text.setPosition(animal.getPosition().x + 50, animal.getPosition().y + j * 30);
+                window.draw(text);
+            }
+        }
+
+        // Play background music
+        music.play();
+
+        // Update the window
+        window.display();
+    }
+
+    return 0;
+}
