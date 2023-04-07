@@ -101,6 +101,8 @@ int main()
             case 2:
                 animal = lion;
                 break;
+            case 3:
+                animal = cat;
             }
 
             // Display animal name
@@ -116,6 +118,8 @@ int main()
             case 2:
                 animalName = "Lion";
                 break;
+            case 3:
+                animalName = "Cat";
             }
             Font font;
             font.loadFromFile("arial.ttf");
