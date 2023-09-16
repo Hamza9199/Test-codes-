@@ -1,4 +1,4 @@
-﻿// Aplikacija za ledo proizvode.cpp : This file contains the 'main' function. Program execution begins and ends there.
+// Aplikacija za ledo proizvode.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 
 #include <iostream>
@@ -6,6 +6,7 @@
 #include <string>
 #include <cstring>
 #include <fstream>
+#include <limits> 
 
 using namespace std;
 using std::cout;
@@ -43,6 +44,22 @@ void Fail() {
     }
 }
 
+void printRedText(const string& text) {
+    cout << "\x1B[31m" << text << "\x1B[0m";
+}
+
+void printGreenText(const string& text) {
+    cout << "\x1B[32m" << text << "\x1B[0m"; 
+}
+
+void printBlueText(const string& text) {
+    cout << "\x1B[34m" << text << "\x1B[0m"; 
+}
+
+void printYellowText(const string& text) {
+    cout << "\x1B[33m" << text << "\x1B[0m";
+}
+
 Sladoled unosSladoleda() {
     int max;
     cout << "Koliko zelite sladoleda da unesete: " << '\n';
@@ -65,6 +82,9 @@ Sladoled unosSladoleda() {
         cout << "Mjesec proizvodnje: " << '\n';
         cin >> sladoled.mjesecProizvodnje;
         Fail();
+        while (sladoled.mjesecProizvodnje > 12 || sladoled.mjesecProizvodnje == 0) {
+            cin >> sladoled.mjesecProizvodnje;
+        }   
         cin.ignore();
         cin.ignore();
         cout << "Dan proizvodnje: " << '\n';
@@ -75,11 +95,11 @@ Sladoled unosSladoleda() {
         cout << "Godina roka: " << '\n';
         cin >> sladoled.godRoka;        
         Fail();
-        while (sladoled.godProizvodnje > sladoled.godRoka) {
-            if (sladoled.godProizvodnje > sladoled.godRoka) {
-                cout << "Molim te uozbilji se" << '\n';
+        while (sladoled.godProizvodnje > sladoled.godRoka) {           
+               
+            cout << "Molim te uozbilji se" << '\n';
                 cin >> sladoled.godRoka;
-            }
+            
         }
         cout << "Mjesec roka: " << '\n';
         cin >> sladoled.mjesecRoka;
@@ -99,7 +119,6 @@ Sladoled unosSladoleda() {
         Fail();
         cout << "Unesite koliko tezi sladoled (gram): " << '\n';
         cin >> sladoled.tezina;
-        cin.ignore();
         Fail();
         
             noviSladoledi.push_back(sladoled);
@@ -167,7 +186,7 @@ void najjeftinijiSladoled() {
         return;
     }
 
-    double najmanjaCijena = numeric_limits<double>::max();;
+    double najmanjaCijena = numeric_limits<double>::max();
     Sladoled najsSladoled;
 
     for (const Sladoled& sladoled : sladoledi) {
@@ -224,14 +243,14 @@ void pretragaSladoleda() {
     do {
         cout << endl;
         cout << "\t::MENI PRETRAGE::" << endl << '\n';
-        cout << "1. Pretraga po okusu" << endl;
-        cout << "2. Pretraga po cijeni" << endl;
-        cout << "3. Pretraga po tezini" << '\n';
-        cout << "4. Pretraga po roku trajanja" << '\n';
-        cout << "5. Pretraga po godini proizvodnje" << '\n';
-        cout << "6. Pretraga po nazivu sladoleda" << '\n';
-        cout << "7. Nazad na meni" << endl;
-        cout << "Tvoj izbor: ";
+        printBlueText("1. Pretraga po okusu\n");
+        printBlueText("2. Pretraga po cijeni\n");
+        printBlueText("3. Pretraga po tezini\n");
+        printBlueText("4. Pretraga po roku trajanja\n");
+        printBlueText("5. Pretraga po godini proizvodnje\n");
+        printBlueText("6. Pretraga po nazivu sladoleda\n");
+        printBlueText("7. Nazad na meni\n");
+        printRedText("Tvoj izbor: ");
         cin >> izbor;
         Fail();
         cin.ignore();
@@ -403,40 +422,33 @@ void kupovinaSladoleda(int& novac) {
         return;
     }
 
-    for (Sladoled& sladoled : sladoledi) {
-        string naziv;
-        string okus;
-        
-        cout << "Unesi sladoled koji zelis da kupis od ponudenih (provjeri ispis sladoleda)" << '\n' << '\n';
-        cout << "Unesi naziv sladoleda: ";       
-        getline(cin, naziv);      
-        Fail();
-        cout << "Unesi okus sladoleda: ";      
-        getline(cin, okus);
-        Fail();      
+    bool pronad = false;
+    string naziv;
+    string okus;
 
-            if (naziv == sladoled.ime && okus == sladoled.okus && novac >= sladoled.cijena) {
-            novac -= sladoled.cijena;
-            cout << "Izvolite svoj sladoled: " << '\n';
-            cout << sladoled.ime << " - " << sladoled.okus << " - " << sladoled.cijena << " KM" << '\n';
-                for (auto ova = sladoledi.begin(); ova != sladoledi.end(); ++ova) {
-                     if (ova->ime == naziv && ova->okus == okus && novac >= ova->cijena) {
-                        novac -= ova->cijena;
-                        sladoledi.erase(ova);
-                        break;  
-                     }
-                }
-                break;
-            }
-            
-            else {
-                cout << "Nemate dovoljno novca" << '\n';
-                return;
-            }
+    cout << "Unesi sladoled koji zelis da kupis od ponudenih (provjeri ispis sladoleda)" << '\n' << '\n';
+    printGreenText("Unesi naziv sladoleda: ");
+    getline(cin, naziv);
+    Fail();
+    printGreenText("Unesi okus sladoleda: ");
+    getline(cin, okus);
+    Fail();
+    for (auto ova = sladoledi.begin(); ova != sladoledi.end(); ++ova) {
+        if (ova->ime == naziv && ova->okus == okus && novac >= ova->cijena) {
+            printGreenText("Izvolite svoj sladoled: ");
+            cout << endl;
+            cout << ova->ime << " - " << ova->okus << " - " << ova->cijena << " KM" << '\n';
+
+            novac -= ova->cijena;
+            sladoledi.erase(ova);
+            pronad = true;
+            break;
+        }
+    }
+    if (!pronad) {
+        cout << "Nemas para, uplati koju kintu" << '\n';
     }
 }
-
-
 
 void ucitajSladoledeIzDatoteke() {
     ifstream datoteka("sladoledi.txt");
@@ -467,32 +479,32 @@ void spremiSladoledeUDatoteku() {
     datoteka.close();
 }
 
-
 int main()
 {
     ucitajSladoledeIzDatoteke();
     int izbor;
-    int novac = 0;   
+    int novac = 0;  
+  
     do
     {
         cout << endl;
-        cout << "\t::MENI::" << endl << '\n';
-        cout << "1. Unesi sladoled" << endl;
-        cout << "2. Ispis dostupni sladoleda" << endl;
-        cout << "3. Ispis najskupljeg sladoleda" << endl;
-        cout << "4. Ispis najjeftinijeg sladoleda" << '\n';
-        cout << "5. Ispis prosjecne tezine sladoleda" << endl;
-        cout << "6. Ispis prosjecne cijene sladoleda" << '\n';
-        cout << "7. Pretraga sladoleda (okus, ime, cijena, tezina, godini proivodnje, roku trajanja)" << endl;
-        cout << "8. Stanje/Uplata na racun" << '\n';
-        cout << "9. Kupovina dostupnog sladoleda" << '\n';
-        cout << "10. Kraj programa" << endl;
+        cout << "\t::MENI::" << endl << '\n';     
+        printRedText("1. Unesi sladoled\n");
+        printRedText("2. Ispis dostupni sladoleda\n");
+        printRedText("3. Ispis najskupljeg sladoleda\n");
+        printRedText("4. Ispis najjeftinijeg sladoleda\n");
+        printRedText("5. Ispis prosjecne tezine sladoleda\n");
+        printRedText("6. Ispis prosjecne cijene sladoleda\n");
+        printBlueText("7. Pretraga sladoleda (okus, ime, cijena, tezina, godini proizvodnje, roku trajanja)\n");
+        printYellowText("8. Stanje/Uplata na racun\n");
+        printGreenText("9. Kupovina dostupnog sladoleda\n");
+        printRedText("10. Kraj programa\n");
         cout << "Tvoj izbor: ";
         cin >> izbor;
         Fail();
         cin.ignore();
         system("cls");
-     
+           
         switch (izbor) {
         case 1:
         {           
@@ -529,10 +541,11 @@ int main()
             do {              
                 cout << endl;
                 cout << "\t::MENI KUPOVINE::" << endl << '\n';
-                cout << "1. Uplatite novac na racuna" << '\n';
-                cout << "2. Provjerite stanje racuna" << '\n';
-                cout << "3. Isplatite novac sa racuna" << '\n';
-                cout << "4. Povratak na glavni meni" << '\n';
+                printYellowText("1. Uplatite novac na racuna\n");
+                printYellowText("2. Provjerite stanje racuna\n");
+                printYellowText("3. Isplatite novac sa racuna\n");
+                printYellowText("4. Povratak na glavni meni\n");
+                printRedText("Tvoj izbor: ");
                 cin >> izbori;
                 Fail();
                 system("cls");
