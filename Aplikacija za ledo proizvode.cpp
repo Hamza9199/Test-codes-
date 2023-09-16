@@ -31,7 +31,7 @@ struct Sladoled {
 };
 
 struct Kutija {
-    struct Sladoled;
+    Sladoled sladoled;
     int kolicina;
 };
 
@@ -82,8 +82,10 @@ Sladoled unosSladoleda() {
         cout << "Mjesec proizvodnje: " << '\n';
         cin >> sladoled.mjesecProizvodnje;
         Fail();
-        while (sladoled.mjesecProizvodnje > 12 || sladoled.mjesecProizvodnje == 0) {
+        while (sladoled.mjesecProizvodnje > 12 || sladoled.mjesecProizvodnje < 1) {
+            cout << "Greska! Imamo samo 12 mjeseci, ponovi unos: " << '\n';
             cin >> sladoled.mjesecProizvodnje;
+            Fail();
         }   
         cin.ignore();
         cin.ignore();
@@ -91,24 +93,39 @@ Sladoled unosSladoleda() {
         cin >> sladoled.danProizvodnje;
         cin.ignore();
         Fail();
+        while (sladoled.danProizvodnje > 31 || sladoled.danProizvodnje < 1) {
+            cout << "Greska! Imamo samo 30/31 dan u mjesecu, ponovi unos: " << '\n';
+            cin >> sladoled.danProizvodnje;
+            Fail();
+        }
         cout << "Unesite rok trajanja" << '\n' << '\n';
         cout << "Godina roka: " << '\n';
         cin >> sladoled.godRoka;        
         Fail();
         while (sladoled.godProizvodnje > sladoled.godRoka) {           
                
-            cout << "Molim te uozbilji se" << '\n';
+            cout << "Rok trajanja je manji od godine proizvodnje ponovi unos: " << '\n';
                 cin >> sladoled.godRoka;
-            
+                Fail();
         }
         cout << "Mjesec roka: " << '\n';
         cin >> sladoled.mjesecRoka;
         cin.ignore();
         Fail();
+        while (sladoled.mjesecRoka > 12 || sladoled.mjesecRoka < 1) {
+            cout << "Greska! Imamo samo 12 mjeseci, ponovi unos: " << '\n';
+            cin >> sladoled.mjesecRoka;
+            Fail();
+        }
         cout << "Dan roka: " << '\n';
         cin >> sladoled.danRoka;
         cin.ignore();
         Fail();
+        while (sladoled.danRoka > 31 || sladoled.danRoka < 1) {
+            cout << "Greska! Imamo samo 30/31 dan u mjesecu, ponovi unos: " << '\n';
+            cin >> sladoled.danRoka;
+            Fail();
+        }
         cout << "Unesite cijenu sladoleda: " << '\n';
         cin >> sladoled.cijena;
         cin.ignore();
@@ -130,7 +147,6 @@ Sladoled unosSladoleda() {
             sladoledi.push_back(noviSladoled);
         }
     
-    
     if (!noviSladoledi.empty()) {
         return noviSladoledi.back();
     }
@@ -150,7 +166,7 @@ void ispisSladoleda() {
         cout << "Rok trajanja: " << sladoled.danRoka << "." << sladoled.mjesecRoka << "." << sladoled.godRoka << '\n';
         cout << "Okus sladoleda: " << sladoled.okus << '\n';
         cout << "Cijena sladoleda: " << sladoled.cijena << " KM" << '\n';
-        cout << "Tezina sladoleda: " << sladoled.tezina << " kg" << '\n';
+        cout << "Tezina sladoleda: " << sladoled.tezina << " gram" << '\n';
         cout << "*************************************" << '\n';
     }
 }
@@ -176,7 +192,7 @@ void najskupljiSladoled() {
     cout << "Rok trajanja: " << najSladoled.danRoka << "." << najSladoled.mjesecRoka << "." << najSladoled.godRoka << '\n';
     cout << "Okus sladoleda: " << najSladoled.okus << '\n';
     cout << "Cijena sladoleda: " << najSladoled.cijena << " KM" << '\n';
-    cout << "Tezina sladoleda: " << najSladoled.tezina << " kg" << '\n';
+    cout << "Tezina sladoleda: " << najSladoled.tezina << " gram" << '\n';
     cout << "*************************************" << '\n';
     cout << endl;
 }
@@ -201,7 +217,7 @@ void najjeftinijiSladoled() {
     cout << "Rok trajanja: " << najsSladoled.danRoka << "." << najsSladoled.mjesecRoka << "." << najsSladoled.godRoka << '\n';
     cout << "Okus sladoleda: " << najsSladoled.okus << '\n';
     cout << "Cijena sladoleda: " << najsSladoled.cijena << " KM" << '\n';
-    cout << "Tezina sladoleda: " << najsSladoled.tezina << " kg" << '\n';
+    cout << "Tezina sladoleda: " << najsSladoled.tezina << " gram" << '\n';
     cout << "*************************************" << '\n';
     cout << endl;
 }
@@ -329,10 +345,20 @@ void pretragaSladoleda() {
             cin >> danRoka;
             cin.ignore();
             Fail();
+            while (danRoka > 31 || danRoka < 1) {
+                cout << "Greska! Imamo samo 30/31 dan u mjesecu. Ponovi unos: " << '\n';
+                cin >> danRoka;
+                Fail();
+            }
             cout << "Mjesec roka: " << '\n';
             cin >> mjesecRoka;
             cin.ignore();
             Fail();
+            while (mjesecRoka > 12 || mjesecRoka < 1) {
+                cout << "Greska! Imamo samo 12 mjeseci u godini. Ponovi unos: " << '\n';
+                cin >> mjesecRoka;
+                Fail();
+            }
             cout << "Godina roka: " << '\n';
             cin >> godRoka;
             cin.ignore();
@@ -362,10 +388,20 @@ void pretragaSladoleda() {
             cin >> danProizvodnje;
             cin.ignore();
             Fail();
+            while (danProizvodnje > 31 || danProizvodnje < 1) {
+                cout << "Greska! Imamo samo 30/31 dan u mjesecu. Ponovi unos: " << '\n';
+                cin >> danProizvodnje;
+                Fail();
+            }
             cout << "Mjesec proizvodnje: " << '\n';
             cin >> mjesecProizvodnje;
             cin.ignore();
             Fail();
+            while (mjesecProizvodnje > 12 || mjesecProizvodnje < 1) {
+                cout << "Greska! Imamo samo 12 mjeseci u godini. Ponovi unos: " << '\n';
+                cin >> mjesecProizvodnje;
+                Fail();
+            }
             cout << "Godina proizvodnje: " << '\n';
             cin >> godProizvodnje;
             cin.ignore();
@@ -484,7 +520,7 @@ int main()
     ucitajSladoledeIzDatoteke();
     int izbor;
     int novac = 0;  
-  
+    
     do
     {
         cout << endl;
@@ -600,7 +636,7 @@ int main()
     } while (izbor != 10);
     
     spremiSladoledeUDatoteku();
-
+   
     cout << endl;
     return 0;
 }
