@@ -83,7 +83,7 @@ Sladoled unosSladoleda() {
         cin >> sladoled.mjesecProizvodnje;
         Fail();
         while (sladoled.mjesecProizvodnje > 12 || sladoled.mjesecProizvodnje < 1) {
-            cout << "Greska! Imamo samo 12 mjeseci, ponovi unos: " << '\n';
+            cout << "Greska! Imamo samo 12 mjeseci u godini, ponovi unos: " << '\n';
             cin >> sladoled.mjesecProizvodnje;
             Fail();
         }   
@@ -113,7 +113,7 @@ Sladoled unosSladoleda() {
         cin.ignore();
         Fail();
         while (sladoled.mjesecRoka > 12 || sladoled.mjesecRoka < 1) {
-            cout << "Greska! Imamo samo 12 mjeseci, ponovi unos: " << '\n';
+            cout << "Greska! Imamo samo 12 mjeseci u godini, ponovi unos: " << '\n';
             cin >> sladoled.mjesecRoka;
             Fail();
         }
