@@ -104,7 +104,7 @@ Sladoled unosSladoleda() {
         Fail();
         while (sladoled.godProizvodnje > sladoled.godRoka) {           
                
-            cout << "Rok trajanja je manji od godine proizvodnje ponovi unos: " << '\n';
+            cout << "Rok trajanja je manji od godine proizvodnje, ponovi unos: " << '\n';
                 cin >> sladoled.godRoka;
                 Fail();
         }
@@ -116,6 +116,9 @@ Sladoled unosSladoleda() {
             cout << "Greska! Imamo samo 12 mjeseci u godini, ponovi unos: " << '\n';
             cin >> sladoled.mjesecRoka;
             Fail();
+        }
+        while (sladoled.mjesecRoka < sladoled.mjesecProizvodnje) {
+            cout << "Greska! Mjesec roka mora biti veci od mjeseca proizvodnje, ponovi unos; " << '\n';
         }
         cout << "Dan roka: " << '\n';
         cin >> sladoled.danRoka;
@@ -287,14 +290,21 @@ void pretragaSladoleda() {
         cout << endl;
         cout << endl;
         cout << "\t::MENI PRETRAGE::" << endl << '\n';
-        printBlueText("1. Pretraga po okusu\n");
-        printBlueText("2. Pretraga po cijeni\n");
-        printBlueText("3. Pretraga po tezini\n");
-        printBlueText("4. Pretraga po roku trajanja\n");
-        printBlueText("5. Pretraga po godini proizvodnje\n");
-        printBlueText("6. Pretraga po nazivu sladoleda\n");
-        printBlueText("7. Nazad na meni\n");
-        printRedText("Tvoj izbor: ");
+        printBlueText("1. Pretraga po okusu                                            oooooo     \n");
+        printBlueText("2. Pretraga po cijeni                                         oooooooooo   \n");
+        printBlueText("3. Pretraga po tezini                                        oooooooooooo  \n");
+        printBlueText("4. Pretraga po roku trajanja                                 oooooooooooo  \n");
+        printBlueText("5. Pretraga po godini                                         oooooooooo  \n");
+        printBlueText("6. Pretraga po nazivu sladoleda                                oooooooo   \n");
+        printBlueText("7. Nazad na meni                                              ----------   \n");
+        printYellowText("                                                              ||||||||||   \n");
+        printYellowText("                                                               ||||||||    \n");
+        printYellowText("                                                                ||||||     \n");
+        printYellowText("                                                                 ||||     \n");
+        printYellowText("                                                                 *||*     \n");
+        printYellowText("                                                                  ||      \n");
+        printYellowText("                                                                  ==      \n");
+        printBlueText("Tvoj izbor: ");
         cin >> izbor;
         Fail();
         cin.ignore();
@@ -303,6 +313,13 @@ void pretragaSladoleda() {
         case 1:
         {
             string okus;
+            for (const Sladoled& sladoled : sladoledi) {
+
+                printYellowText(sladoled.ime); printBlueText(" - "); printYellowText(sladoled.okus);
+                cout << endl;
+                cout << "##########################################################################\n";
+                cout << endl;
+            }
             cout << "Unesi okus: " << '\n';
             getline(cin, okus);
             Fail();
@@ -323,14 +340,21 @@ void pretragaSladoleda() {
         break;
         case 2:
         {
-            double cijena;
+            double cijena2;
+            for (const Sladoled& sladoled : sladoledi) {
+
+                printYellowText(sladoled.ime); printBlueText(" - "); cout << sladoled.cijena;
+                cout << endl;
+                cout << "##########################################################################\n";
+                cout << endl;
+            }
             cout << "Unesi cijenu: " << '\n';
-            cin >> cijena;
+            cin >> cijena2;
             Fail();
-            cout << "Sladoledi sa cijenom " << cijena << " KM:" << '\n';
+            cout << "Sladoledi sa cijenom " << cijena2 << " KM:" << '\n';
             bool pronaden = false;
             for (const Sladoled& sladoled : sladoledi) {
-                if (sladoled.cijena == cijena) {
+                if (sladoled.cijena == cijena2) {
                     pronaden = true;
                     cout << "----------------" << '\n';
                     cout << sladoled.ime << '\n';
@@ -345,6 +369,13 @@ void pretragaSladoleda() {
         case 3:
         {
             int tezina;
+            for (const Sladoled& sladoled : sladoledi) {
+
+                printYellowText(sladoled.ime); printBlueText(" - "); cout << sladoled.tezina;
+                cout << endl;
+                cout << "##########################################################################\n";
+                cout << endl;
+            }
             cout << "Unesi tezinu: " << '\n';
             cin >> tezina;
             Fail();
@@ -368,6 +399,13 @@ void pretragaSladoleda() {
             int godRoka;
             int mjesecRoka;
             int danRoka;
+            for (const Sladoled& sladoled : sladoledi) {
+
+                printYellowText(sladoled.ime); printBlueText(" - "); cout << sladoled.danRoka; printBlueText(" - "); cout << sladoled.mjesecRoka; printBlueText(" - "); cout << sladoled.godRoka;
+                cout << endl;
+                cout << "##########################################################################\n";
+                cout << endl;
+            }
             cout << "Unesite rok trajanja" << '\n' << '\n';
             cout << "Dan roka: " << '\n';
             cin >> danRoka;
@@ -411,6 +449,13 @@ void pretragaSladoleda() {
             int godProizvodnje;
             int mjesecProizvodnje;
             int danProizvodnje;
+            for (const Sladoled& sladoled : sladoledi) {
+
+                printYellowText(sladoled.ime); printBlueText(" - "); cout << sladoled.danProizvodnje; printBlueText(" - "); cout << sladoled.mjesecProizvodnje; printBlueText(" - "); cout << sladoled.godProizvodnje;
+                cout << endl;
+                cout << "##########################################################################\n";
+                cout << endl;
+            }
             cout << "Unesite dan proizvodnje" << '\n' << '\n';
             cout << "Dan proizvodnje: " << '\n';
             cin >> danProizvodnje;
@@ -452,6 +497,13 @@ void pretragaSladoleda() {
         case 6:
         {
             string ime;
+            for (const Sladoled& sladoled : sladoledi) {
+
+                printYellowText(sladoled.ime); printBlueText(" - "); printYellowText(sladoled.okus);
+                cout << endl;
+                cout << "##########################################################################\n";
+                cout << endl;
+            }
             cout << "Unesi naziv sladolea: " << '\n';
             getline(cin, ime);
             Fail();
@@ -489,8 +541,16 @@ void kupovinaSladoleda(int& novac) {
     bool pronad = false;
     string naziv;
     string okus;
-
+    
     cout << "Unesi sladoled koji zelis da kupis od ponudenih (provjeri ispis sladoleda)" << '\n' << '\n';
+    
+    for (const Sladoled& sladoled : sladoledi) {
+        
+        printYellowText(sladoled.ime); printBlueText(" - "); printYellowText(sladoled.okus);
+        cout << endl;
+        cout << "##########################################################################\n";
+        cout << endl;
+    }
     printGreenText("Unesi naziv sladoleda: ");
     getline(cin, naziv);
     Fail();
@@ -510,7 +570,7 @@ void kupovinaSladoleda(int& novac) {
         }
     }
     if (!pronad) {
-        cout << "Nemas para, uplati koju kintu" << '\n';
+        cout << "Nemas para, uplati koju kintu..." << '\n';
     }
 }
 
@@ -554,7 +614,7 @@ int main()
         cout << endl;
         cout << endl;
         printYellowText("*****************************************************************************************************************************************************\n");
-        printYellowText("*****************************************************************************************************************************************************\n");
+        printYellowText("    *********************************************************************************************************************************************\n");
         printYellowText("                 *****************************************************************************************************************                   \n");
         cout << endl;
        printBlueText("###############    ######           #############    ############       ##############     ######            ##########    ############      ######\n");  
@@ -570,27 +630,27 @@ int main()
 
         cout << endl;
         printYellowText("                 ******************************************************************************************************************                   \n");
-        printYellowText("******************************************************************************************************************************************************\n");
+        printYellowText("    **********************************************************************************************************************************************\n");
         printYellowText("******************************************************************************************************************************************************\n");
         cout << endl;
         cout << endl;
         cout << "\t::MENI::" << endl << '\n';     
-        printRedText("1. Unesi sladoled                                                                                                        .-.\n");
-        printRedText("2. Ispis dostupni sladoleda                                                                                             /**/\n");
-        printRedText("3. Ispis najskupljeg sladoleda                                                                                         /**/\n");
-        printRedText("4. Ispis najjeftinijeg sladoleda                                                                                      /**/\n");
+        printRedText("1. Unesi sladoled                                                                                                        .-. \n");
+        printRedText("2. Ispis dostupni sladoleda                                                                                             /**/ \n");
+        printRedText("3. Ispis najskupljeg sladoleda                                                                                         /**/ \n");
+        printRedText("4. Ispis najjeftinijeg sladoleda                                                                                      /**/ \n");
         printRedText("5. Ispis prosjecne tezine sladoleda                                                                               -- '**/ \n");
         printRedText("6. Ispis prosjecne cijene sladoleda                                                                               | ** / \n");
         printBlueText("7. Pretraga sladoleda (okus, ime, cijena, tezina, godini proizvodnje, roku trajanja)                             | ** / \n");
         printYellowText("8. Stanje/Uplata na racun                                                                                      | *** |__ \n");
-        printGreenText("9. Kupovina dostupnog sladoleda                                                                               |________|\n");
+        printGreenText("9. Kupovina dostupnog sladoleda                                                                               |________| \n");
         printRedText("10. Kraj programa                                                                                            |||||||||||| \n");
-        printRedText(" Tvoj izbor:                                                                                                ||||||||||||||\n"); 
+        printRedText(" Tvoj izbor:                                                                                                |||||||||||||| \n"); 
         printRedText("                                                                                                             |||||||||||| \n");
         printRedText("                                                                                                              |||||||||| \n");
         printRedText("                                                                                                               |||||||| \n");
         printRedText("                                                                                                                |||||| \n");
-        printRedText("                                                                                                                |____|\n");
+        printRedText("                                                                                                                |____| \n");
         
         cin >> izbor;
         Fail();
