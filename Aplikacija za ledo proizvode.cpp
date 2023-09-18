@@ -117,8 +117,9 @@ Sladoled unosSladoleda() {
             cin >> sladoled.mjesecRoka;
             Fail();
         }
-        while (sladoled.mjesecRoka < sladoled.mjesecProizvodnje) {
+        while (sladoled.godProizvodnje == sladoled.godRoka && sladoled.mjesecRoka < sladoled.mjesecProizvodnje) {
             cout << "Greska! Mjesec roka mora biti veci od mjeseca proizvodnje, ponovi unos; " << '\n';
+            cin >> sladoled.mjesecRoka;
         }
         cout << "Dan roka: " << '\n';
         cin >> sladoled.danRoka;
@@ -546,7 +547,7 @@ void kupovinaSladoleda(int& novac) {
     
     for (const Sladoled& sladoled : sladoledi) {
         
-        printYellowText(sladoled.ime); printBlueText(" - "); printYellowText(sladoled.okus);
+        printYellowText(sladoled.ime); printBlueText(" - "); printYellowText(sladoled.okus); printBlueText(" - "); cout << sladoled.cijena;
         cout << endl;
         cout << "##########################################################################\n";
         cout << endl;
