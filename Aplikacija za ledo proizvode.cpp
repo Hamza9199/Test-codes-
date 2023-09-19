@@ -6,11 +6,13 @@
 #include <string>
 #include <cstring>
 #include <fstream>
-#include <limits> 
+#include <limits>
+#include <ctime>
 
 using namespace std;
 using std::cout;
 using std::endl;
+using std::getline;
 
 struct Sladoled {
     string ime;
@@ -176,7 +178,34 @@ void ispisSladoleda() {
         cout << "Okus sladoleda: " << sladoled.okus << '\n';
         cout << "Cijena sladoleda: " << sladoled.cijena << " KM" << '\n';
         cout << "Tezina sladoleda: " << sladoled.tezina << " gram" << '\n';
+        
         cout << "*************************************" << '\n';
+    }
+}
+
+void isticeRok() {
+    int isticeGod;
+    int isticeMjesec;
+    int isticeDan;
+
+    for (Sladoled& sladoled : sladoledi) {
+
+        isticeGod = sladoled.godRoka - sladoled.godProizvodnje;
+        isticeMjesec = sladoled.mjesecRoka - sladoled.mjesecProizvodnje;
+        isticeDan = sladoled.danRoka - sladoled.danProizvodnje;
+
+        if (isticeDan < 0) {
+            isticeMjesec--;
+            isticeDan += 31;
+        }
+        if (isticeMjesec < 0) {
+            isticeGod--;
+            isticeMjesec += 12;
+        }
+        
+        cout << sladoled.ime << " - " << sladoled.okus << " - " << sladoled.cijena << '\n';
+        printRedText("Rok trajanja sladoleda istice za: "); cout << isticeGod << " godina, " << isticeMjesec << " mjeseci i " << isticeDan << " dana." << endl;
+        printYellowText("***********************************************************\n");
     }
 }
 
@@ -545,13 +574,8 @@ void kupovinaSladoleda(int& novac) {
     
     cout << "Unesi sladoled koji zelis da kupis od ponudenih (provjeri ispis sladoleda)" << '\n' << '\n';
     
-    for (const Sladoled& sladoled : sladoledi) {
-        
-        printYellowText(sladoled.ime); printBlueText(" - "); printYellowText(sladoled.okus); printBlueText(" - "); cout << sladoled.cijena;
-        cout << endl;
-        cout << "##########################################################################\n";
-        cout << endl;
-    }
+    isticeRok();
+
     printGreenText("Unesi naziv sladoleda: ");
     getline(cin, naziv);
     Fail();
@@ -645,9 +669,9 @@ int main()
         printBlueText("7. Pretraga sladoleda (okus, ime, cijena, tezina, godini proizvodnje, roku trajanja)                             | ** / \n");
         printYellowText("8. Stanje/Uplata na racun                                                                                      | *** |__ \n");
         printGreenText("9. Kupovina dostupnog sladoleda                                                                               |________| \n");
-        printRedText("10. Kraj programa                                                                                            |||||||||||| \n");
-        printRedText(" Tvoj izbor:                                                                                                |||||||||||||| \n"); 
-        printRedText("                                                                                                             |||||||||||| \n");
+        printRedText("10. Provjeri koliko je sladoledu ostalo zivota                                                               |||||||||||| \n");
+        printRedText("11. Kraj programa                                                                                           |||||||||||||| \n"); 
+        printRedText(" Tvoj izbor:                                                                                                 |||||||||||| \n");
         printRedText("                                                                                                              |||||||||| \n");
         printRedText("                                                                                                               |||||||| \n");
         printRedText("                                                                                                                |||||| \n");
@@ -769,13 +793,18 @@ int main()
             kupovinaSladoleda(novac);      
         break;
         case 10:
+        {
+          isticeRok();                        
+        }
+        break;
+        case 11:
             cout << "MARS NAPOLJE PICKICE MALA!" << endl;
             break;
         default:
             cout << "Nepoznat izbor, pokusajte ponovo." << endl;
             break;
         }
-    } while (izbor != 10);
+    } while (izbor != 11);
     
     spremiSladoledeUDatoteku();
    
