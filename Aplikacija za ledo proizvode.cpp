@@ -177,7 +177,7 @@ void ispisSladoleda() {
         cout << "Rok trajanja: " << sladoled.danRoka << "." << sladoled.mjesecRoka << "." << sladoled.godRoka << '\n';
         cout << "Okus sladoleda: " << sladoled.okus << '\n';
         cout << "Cijena sladoleda: " << sladoled.cijena << " KM" << '\n';
-        cout << "Tezina sladoleda: " << sladoled.tezina << " gram" << '\n';
+        cout << "Tezina sladoleda: " << sladoled.tezina << " grama" << '\n';
         
         cout << "*************************************" << '\n';
     }
@@ -230,7 +230,7 @@ void najskupljiSladoled() {
     cout << "Rok trajanja: " << najSladoled.danRoka << "." << najSladoled.mjesecRoka << "." << najSladoled.godRoka << '\n';
     cout << "Okus sladoleda: " << najSladoled.okus << '\n';
     cout << "Cijena sladoleda: " << najSladoled.cijena << " KM" << '\n';
-    cout << "Tezina sladoleda: " << najSladoled.tezina << " gram" << '\n';
+    cout << "Tezina sladoleda: " << najSladoled.tezina << " grama" << '\n';
     cout << "*************************************" << '\n';
     cout << endl;
 }
@@ -255,7 +255,7 @@ void najjeftinijiSladoled() {
     cout << "Rok trajanja: " << najsSladoled.danRoka << "." << najsSladoled.mjesecRoka << "." << najsSladoled.godRoka << '\n';
     cout << "Okus sladoleda: " << najsSladoled.okus << '\n';
     cout << "Cijena sladoleda: " << najsSladoled.cijena << " KM" << '\n';
-    cout << "Tezina sladoleda: " << najsSladoled.tezina << " gram" << '\n';
+    cout << "Tezina sladoleda: " << najsSladoled.tezina << " grama" << '\n';
     cout << "*************************************" << '\n';
     cout << endl;
 }
@@ -324,7 +324,7 @@ void pretragaSladoleda() {
         printBlueText("2. Pretraga po cijeni                                         oooooooooo   \n");
         printBlueText("3. Pretraga po tezini                                        oooooooooooo  \n");
         printBlueText("4. Pretraga po roku trajanja                                 oooooooooooo  \n");
-        printBlueText("5. Pretraga po godini                                         oooooooooo  \n");
+        printBlueText("5. Pretraga po godini proizvodnje                             oooooooooo  \n");
         printBlueText("6. Pretraga po nazivu sladoleda                                oooooooo   \n");
         printBlueText("7. Nazad na meni                                              ----------   \n");
         printYellowText("                                                              ||||||||||   \n");
