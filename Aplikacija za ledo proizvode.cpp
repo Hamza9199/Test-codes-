@@ -67,7 +67,11 @@ Sladoled unosSladoleda() {
     cout << "Koliko zelite sladoleda da unesete: " << '\n';
     cin >> max;
     Fail();
-       
+    while (max == 0 || max < 1) {
+        cout << "Greska! Unesi realan broj sladoleda, ponovi unos: " << '\n';
+        cin >> max;
+    }
+
     vector<Sladoled> noviSladoledi;
     Sladoled noviSladoled;
     Sladoled sladoled;
@@ -798,7 +802,7 @@ int main()
         }
         break;
         case 11:
-            cout << "MARS NAPOLJE PICKICE MALA!" << endl;
+            cout << "AJD ISKLJUCI SINE TAJ TELEFON KO BOGA TE MOLIM...AJDE...HVALA!" << endl;
             break;
         default:
             cout << "Nepoznat izbor, pokusajte ponovo." << endl;
