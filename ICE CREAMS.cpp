@@ -13,6 +13,7 @@ using namespace std;
 using std::cout;
 using std::endl;
 using std::getline;
+using std::cin;
 
 struct Sladoled {
     string ime;
@@ -63,22 +64,13 @@ void printYellowText(const string& text) {
 }
 
 Sladoled unosSladoleda() {
-    int max;
-    cout << "Koliko zelite sladoleda da unesete: " << '\n';
-    cin >> max;
-    Fail();
-    while (max == 0 || max < 1) {
-        cout << "Greska! Unesi realan broj sladoleda, ponovi unos: " << '\n';
-        cin >> max;
-    }
-
-    vector<Sladoled> noviSladoledi;
-    Sladoled noviSladoled;
-    Sladoled sladoled;
-    for (int i = 0; i < max; i++) {
-        cout << "Unesi ime sladoleda: " << '\n';
-        cin.ignore();
+        
+    Sladoled sladoled;  
+    cin.ignore();
+        
+        cout << "Unesi ime sladoleda: " << '\n';      
         getline(cin, sladoled.ime);    
+        cin.ignore();
         Fail();    
         cout << "Unesi datum proizvodnje" << '\n' << '\n';      
         cout << "Godina proizvodnje: " << '\n';
@@ -152,19 +144,8 @@ Sladoled unosSladoleda() {
         cout << "Unesite koliko tezi sladoled (gram): " << '\n';
         cin >> sladoled.tezina;
         Fail();
-        
-            noviSladoledi.push_back(sladoled);
-        
-        system("cls");
-    }
-    
-        for (const Sladoled& noviSladoled : noviSladoledi) {
-            sladoledi.push_back(noviSladoled);
-        }
-    
-    if (!noviSladoledi.empty()) {
-        return noviSladoledi.back();
-    }
+         
+        return sladoled; 
 }
 
 void ispisSladoleda() {
@@ -688,8 +669,25 @@ int main()
            
         switch (izbor) {
         case 1:
-        {           
-            unosSladoleda();
+        {      
+            r:
+
+            sladoledi.push_back(unosSladoleda());
+            int izbor;
+
+            cout << "Zelis da nastavis sa unosom sladoleda (1-DA, 2-NE)?\n";
+            cin >> izbor;
+            
+            Fail();
+
+            switch (izbor) {
+            case 1:
+                goto r;
+                break;
+            case 2:
+                cout << "Pa nema veze ajde...\n";
+                break;
+            }
         }
             break;
         case 2:
