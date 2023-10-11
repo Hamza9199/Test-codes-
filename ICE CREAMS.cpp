@@ -687,6 +687,9 @@ int main()
             case 2:
                 cout << "Pa nema veze ajde...\n";
                 break;
+            default:
+            cout << "Nepoznat izbor, pokusajte ponovo." << endl;
+            break;
             }
         }
             break;
@@ -787,6 +790,9 @@ int main()
                         cout << "Povratak na glavni meni" << '\n';
                     }
                     break;
+                    default:
+                        cout << "Nepoznat izbor, pokusajte ponovo." << endl;
+                        break;
                 }
             } while (izbori != 4);
             break;
